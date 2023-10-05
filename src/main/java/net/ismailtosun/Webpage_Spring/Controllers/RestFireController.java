@@ -4,7 +4,7 @@ import net.ismailtosun.Webpage_Spring.Models.AllData;
 import net.ismailtosun.Webpage_Spring.Models.TopSection;
 import org.springframework.web.bind.annotation.*;
 import net.ismailtosun.Webpage_Spring.Interfaces.WebpageAdapter;
-@CrossOrigin(origins = {"http://localhost:8081", "http://192.168.91.97:8081"})
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api/firebase")
 public class RestFireController implements WebpageAdapter {

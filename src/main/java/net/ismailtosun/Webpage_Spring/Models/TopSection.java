@@ -1,13 +1,52 @@
 package net.ismailtosun.Webpage_Spring.Models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "top_section_table")
 public class TopSection {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    int id;
+
+    @Column(name = "hellopromt")
     String hellopromt;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Column(name = "myname")
     String myname;
+
+    @Column(name = "mytitle")
     String mytitle;
-    public TopSection(String hellopromt, String myname, String mytitle) {
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    @Column(name = "lang")
+    String lang;
+
+    public TopSection() {
+    }
+
+    public TopSection(String hellopromt, String myname, String mytitle, String lang) {
         this.hellopromt = hellopromt;
         this.myname = myname;
         this.mytitle = mytitle;
+        this.lang = lang;
     }
 
     public String getHellopromt() {

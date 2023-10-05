@@ -38,8 +38,8 @@ class WebpageSpringApplicationTests {
 	void topsectionLanguageTest() {
 
 		TopSection topSection = topSectionRepository.findById(2).get();
-		assertEquals("en", topSection.getLang());
-		assertNotEquals("tr", topSection.getLang());
+		assertEquals("en", topSection.getLang(),"The language is must be en");
+		assertNotEquals("tr", topSection.getLang(), "The language is must be en");
 	}
 	@BeforeEach
 	void setUp() {

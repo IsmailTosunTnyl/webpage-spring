@@ -23,11 +23,9 @@ public class RestController implements WebpageAdapter {
 
     @Override
     @GetMapping("/alldata")
-    public AllData getAllData(@RequestHeader(value= "lang", defaultValue = "en") String lang) {
-        AllData allData = allDataService.getAllData();
-
-
-
+    public AllData getAllData(@RequestHeader(value= "Accept-Language", defaultValue = "en") String lang) {
+        AllData allData = allDataService.getAllData(lang);
+        System.out.printf("lang: %s\n", lang);
         return allData;
     }
 }

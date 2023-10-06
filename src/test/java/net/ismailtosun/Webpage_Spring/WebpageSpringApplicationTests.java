@@ -33,14 +33,27 @@ class WebpageSpringApplicationTests {
 
 	}
 
-
+	// TopSection Tests
 	@Test
-	void topsectionLanguageTest() {
+	void topsectionFinByID() {
 
 		TopSection topSection = topSectionRepository.findById(2).get();
 		assertEquals("en", topSection.getLang(),"The language is must be en");
 		assertNotEquals("tr", topSection.getLang(), "The language is must be en");
 	}
+
+	@Test
+	void topsectionFindByLang() {
+		TopSection topSectionEN = topSectionRepository.findByLang("en");
+		TopSection topSectionTR = topSectionRepository.findByLang("tr");
+		assertEquals("en", topSectionEN.getLang(),"The language is must be en");
+		assertEquals("tr", topSectionTR.getLang(),"The language is must be tr");
+		assertNotEquals("tr", topSectionEN.getLang(), "The language is must be en");
+	}
+
+
+
+
 	@BeforeEach
 	void setUp() {
 		jdbc.execute(sqlAddTopSection);

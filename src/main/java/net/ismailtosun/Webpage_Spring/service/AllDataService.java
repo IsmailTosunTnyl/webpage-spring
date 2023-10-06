@@ -24,9 +24,9 @@ public class AllDataService {
 
 
 
-    public AllData getAllData(){
+    public AllData getAllData(String lang){
 
-        TopSection topSection = topSectionRepository.findById(1).get();
+        TopSection topSection = topSectionRepository.findByLang(lang);
 
         AllData allData = new AllData(topSection);
 

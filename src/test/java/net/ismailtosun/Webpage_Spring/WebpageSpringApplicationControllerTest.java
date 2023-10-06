@@ -1,6 +1,7 @@
 package net.ismailtosun.Webpage_Spring;
 
 import net.ismailtosun.Webpage_Spring.dao.TopSectionRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,10 @@ public class WebpageSpringApplicationControllerTest {
     @BeforeEach
     void setUp() {
         jdbc.execute(sqlAddTopSection);
+    }
+    @AfterEach
+    void tearDown() {
+        jdbc.execute("DELETE FROM top_section_table");
     }
 
     @Test

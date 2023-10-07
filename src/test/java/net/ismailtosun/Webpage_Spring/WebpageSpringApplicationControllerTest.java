@@ -1,10 +1,7 @@
 package net.ismailtosun.Webpage_Spring;
 
-import net.ismailtosun.Webpage_Spring.dao.TopSectionRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import net.ismailtosun.Webpage_Spring.repository.TopSectionRepository;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,6 +31,12 @@ public class WebpageSpringApplicationControllerTest {
     @Value("${sql.script.create.topsection}")
     private String sqlAddTopSection;
 
+    @Value("${sql.script.create.aboutsection}")
+    private String sqlAddAboutSection;
+
+    @Value("${sql.script.create.selectorsection}")
+    private String sqlAddSelectorSection;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,10 +49,14 @@ public class WebpageSpringApplicationControllerTest {
     @BeforeEach
     void setUp() {
         jdbc.execute(sqlAddTopSection);
+        jdbc.execute(sqlAddAboutSection);
+        jdbc.execute(sqlAddSelectorSection);
     }
     @AfterEach
     void tearDown() {
         jdbc.execute("DELETE FROM top_section_table");
+        jdbc.execute("DELETE FROM about_section_table");
+        jdbc.execute("DELETE FROM selector_section_table");
     }
 
     @Test
@@ -60,13 +67,14 @@ public class WebpageSpringApplicationControllerTest {
     // get alldata tests
 
     @Test
-    void getAlldataHttpRequest() throws Exception {
+    @DisplayName("getAllData TopSection HTTP Request")
+    void getAlldataHttpRequestTopSection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.topSection.lang").value("en"));
 
-        // add parameter to request
+
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
@@ -75,4 +83,38 @@ public class WebpageSpringApplicationControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.topSection.lang").value("tr"));
     }
+
+
+    @Test
+    @DisplayName("getAllData AboutSection HTTP Request")
+    void getAlldataHttpRequestAboutSection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.aboutSection.lang").value("en"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
+                        .header("Accept-Language", "tr"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.aboutSection.lang").value("tr"));
+    }
+
+    @Test
+    @DisplayName("getAllData SelectorSection HTTP Request")
+    void getAlldataHttpRequestSelectorSection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.selectorSection.lang").value("en"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
+                        .header("Accept-Language", "tr"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.selectorSection.lang").value("tr"));
+    }
+
+
+
 }

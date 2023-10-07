@@ -1,11 +1,10 @@
-package net.ismailtosun.Webpage_Spring.Controllers;
+package net.ismailtosun.Webpage_Spring.controllers;
 
-import net.ismailtosun.Webpage_Spring.Models.AllData;
-import net.ismailtosun.Webpage_Spring.Models.TopSection;
+import net.ismailtosun.Webpage_Spring.models.AllData;
 import net.ismailtosun.Webpage_Spring.service.AllDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import net.ismailtosun.Webpage_Spring.Interfaces.WebpageAdapter;
+import net.ismailtosun.Webpage_Spring.interfaces.WebpageAdapter;
 @CrossOrigin(maxAge = 3600)
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/webpage")

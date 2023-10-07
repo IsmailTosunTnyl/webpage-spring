@@ -1,9 +1,14 @@
 package net.ismailtosun.Webpage_Spring;
 
-import net.ismailtosun.Webpage_Spring.Models.TopSection;
-import net.ismailtosun.Webpage_Spring.dao.TopSectionRepository;
+import net.ismailtosun.Webpage_Spring.models.AboutSection;
+import net.ismailtosun.Webpage_Spring.models.SelectorSection;
+import net.ismailtosun.Webpage_Spring.models.TopSection;
+import net.ismailtosun.Webpage_Spring.repository.AboutSectionRepository;
+import net.ismailtosun.Webpage_Spring.repository.SelectorSectionRepository;
+import net.ismailtosun.Webpage_Spring.repository.TopSectionRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +32,28 @@ class WebpageSpringApplicationTests {
 	@Autowired
 	private TopSectionRepository topSectionRepository;
 
+	@Autowired
+	private AboutSectionRepository aboutSectionRepository;
+
+	@Autowired
+	private SelectorSectionRepository selectorSectionRepository;
+
+
 	@Value("${sql.script.create.topsection}")
 	private String sqlAddTopSection;
+
+	@Value("${sql.script.create.aboutsection}")
+	private String sqlAddAboutSection;
+
+	@Value("${sql.script.create.selectorsection}")
+	private String sqlAddSelectorSection;
 	@Test void placeholder(){
 
 	}
 
 	// TopSection Tests
 	@Test
+	@DisplayName("TopSection FindByID")
 	void topsectionFinByID() {
 
 		TopSection topSection = topSectionRepository.findById(2).get();
@@ -43,6 +62,7 @@ class WebpageSpringApplicationTests {
 	}
 
 	@Test
+	@DisplayName("TopSection FindByLang")
 	void topsectionFindByLang() {
 		TopSection topSectionEN = topSectionRepository.findByLang("en");
 		TopSection topSectionTR = topSectionRepository.findByLang("tr");
@@ -51,15 +71,60 @@ class WebpageSpringApplicationTests {
 		assertNotEquals("tr", topSectionEN.getLang(), "The language is must be en");
 	}
 
+	@Test
+	@DisplayName("AboutSection FindByID")
+	void aboutsectionFinByID() {
+
+		AboutSection aboutSectionTR = aboutSectionRepository.findById(1).get();
+
+		assertEquals("tr", aboutSectionTR.getLang(),"The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("AboutSection FindByLang")
+	void aboutsectionFindByLang() {
+
+		AboutSection aboutSectionTR = aboutSectionRepository.findByLang("tr");
+		AboutSection aboutSectionEN = aboutSectionRepository.findByLang("en");
+
+		assertEquals("tr", aboutSectionTR.getLang(),"The language is must be tr");
+		assertEquals("en", aboutSectionEN.getLang(),"The language is must be en");
+		assertNotEquals("en", aboutSectionTR.getLang(), "The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("SelectorSection FindByID")
+	void selectorsectionFinByID() {
+
+		SelectorSection selectorSectionTR = selectorSectionRepository.findById(1).get();
+
+		assertEquals("tr", selectorSectionTR.getLang(),"The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("SelectorSection FindByLang")
+	void selectorsectionFindByLang() {
+
+		SelectorSection selectorSectionTR = selectorSectionRepository.findByLang("tr");
+		SelectorSection selectorSectionEN = selectorSectionRepository.findByLang("en");
+
+		assertEquals("tr", selectorSectionTR.getLang(),"The language is must be tr");
+		assertEquals("en", selectorSectionEN.getLang(),"The language is must be en");
+		assertNotEquals("en", selectorSectionTR.getLang(), "The language is must be tr");
+	}
 
 
 
 	@BeforeEach
 	void setUp() {
 		jdbc.execute(sqlAddTopSection);
+		jdbc.execute(sqlAddAboutSection);
+		jdbc.execute(sqlAddSelectorSection);
 	}
 	@AfterEach
 	void tearDown() {
 		jdbc.execute("DELETE FROM top_section_table");
+		jdbc.execute("DELETE FROM about_section_table");
+		jdbc.execute("DELETE FROM selector_section_table");
 	}
 }

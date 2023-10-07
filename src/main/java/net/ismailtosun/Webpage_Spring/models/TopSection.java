@@ -1,4 +1,4 @@
-package net.ismailtosun.Webpage_Spring.Models;
+package net.ismailtosun.Webpage_Spring.models;
 
 import jakarta.persistence.*;
 
@@ -14,13 +14,7 @@ public class TopSection {
     @Column(name = "hellopromt")
     String hellopromt;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Column(name = "myname")
     String myname;
@@ -31,7 +25,13 @@ public class TopSection {
     public String getLang() {
         return lang;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setLang(String lang) {
         this.lang = lang;
     }

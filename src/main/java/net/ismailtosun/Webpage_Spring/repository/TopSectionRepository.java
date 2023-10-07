@@ -1,6 +1,6 @@
-package net.ismailtosun.Webpage_Spring.dao;
+package net.ismailtosun.Webpage_Spring.repository;
 
-import net.ismailtosun.Webpage_Spring.Models.TopSection;
+import net.ismailtosun.Webpage_Spring.models.TopSection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;

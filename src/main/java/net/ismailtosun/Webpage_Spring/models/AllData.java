@@ -6,11 +6,15 @@ public class AllData {
     private SelectorSection selectorSection;
     private SkillsSection skillsSection;
 
-    public AllData(TopSection topSection, AboutSection aboutSection,SelectorSection selectorSection,SkillsSection skillsSection) {
+    private RecentWorkSection recentWorkSection;
+
+    public AllData(TopSection topSection, AboutSection aboutSection,SelectorSection selectorSection,
+                   SkillsSection skillsSection,RecentWorkSection recentWorkSection) {
         this.topSection = topSection;
         this.aboutSection = aboutSection;
         this.selectorSection = selectorSection;
         this.skillsSection = skillsSection;
+        this.recentWorkSection = recentWorkSection;
     }
 
     public TopSection getTopSection() {
@@ -44,5 +48,13 @@ public class AllData {
 
     public void setSkillsSection(SkillsSection skillsSection) {
         this.skillsSection = skillsSection;
+    }
+
+    public RecentWorkSection getRecentWorkSection() {
+        return recentWorkSection;
+    }
+
+    public void setRecentWorkSection(RecentWorkSection recentWorkSection) {
+        this.recentWorkSection = recentWorkSection;
     }
 }

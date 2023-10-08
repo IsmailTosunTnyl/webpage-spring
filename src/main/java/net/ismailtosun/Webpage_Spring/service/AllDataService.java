@@ -1,10 +1,7 @@
 package net.ismailtosun.Webpage_Spring.service;
 
 import net.ismailtosun.Webpage_Spring.models.*;
-import net.ismailtosun.Webpage_Spring.repository.AboutSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.SelectorSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.SkillsSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.TopSectionRepository;
+import net.ismailtosun.Webpage_Spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +17,17 @@ public class AllDataService {
     private SelectorSectionRepository selectorSectionRepository;
     private SkillsSectionRepository skillsSectionRepository;
 
+    private RecentWorkSectionRepository recentWorkSectionRepository;
+
     @Autowired
     public AllDataService(TopSectionRepository topSectionRepository, AboutSectionRepository aboutSectionRepository,
-                          SelectorSectionRepository selectorSectionRepository, SkillsSectionRepository skillsSectionRepository) {
+                          SelectorSectionRepository selectorSectionRepository, SkillsSectionRepository skillsSectionRepository,
+                          RecentWorkSectionRepository recentWorkSectionRepository) {
         this.topSectionRepository = topSectionRepository;
         this.aboutSectionRepository = aboutSectionRepository;
         this.selectorSectionRepository = selectorSectionRepository;
         this.skillsSectionRepository = skillsSectionRepository;
+        this.recentWorkSectionRepository = recentWorkSectionRepository;
     }
 
 
@@ -37,8 +38,10 @@ public class AllDataService {
         AboutSection aboutSection = aboutSectionRepository.findByLang(lang);
         SelectorSection selectorSection = selectorSectionRepository.findByLang(lang);
         SkillsSection skillsSection = skillsSectionRepository.findByLang(lang);
+        RecentWorkSection recentWorkSection = recentWorkSectionRepository.findByLang(lang);
 
-        AllData allData = new AllData(topSection, aboutSection, selectorSection,skillsSection);
+
+        AllData allData = new AllData(topSection, aboutSection, selectorSection,skillsSection,recentWorkSection);
 
         return allData;
     }

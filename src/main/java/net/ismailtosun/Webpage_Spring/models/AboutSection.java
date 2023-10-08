@@ -26,17 +26,22 @@ public class AboutSection {
     @Column(name = "about_download_button")
     private String aboutDownloadButton;
 
+    @Column(name = "about_download_link")
+    private String aboutDownloadLink;
+
 
     public AboutSection() {
     }
 
-    public AboutSection(int id, String lang, String aboutTitle, String aboutText, String aboutHiremeButton, String aboutDownloadButton) {
+    public AboutSection(int id, String lang, String aboutTitle, String aboutText,
+                        String aboutHiremeButton, String aboutDownloadButton, String aboutDownloadLink) {
         this.id = id;
         this.lang = lang;
         this.aboutTitle = aboutTitle;
         this.aboutText = aboutText;
         this.aboutHiremeButton = aboutHiremeButton;
         this.aboutDownloadButton = aboutDownloadButton;
+        this.aboutDownloadLink = aboutDownloadLink;
     }
 
     public int getId() {
@@ -85,5 +90,13 @@ public class AboutSection {
 
     public void setAboutDownloadButton(String aboutDownloadButton) {
         this.aboutDownloadButton = aboutDownloadButton;
+    }
+
+    public String getAboutDownloadLink() {
+        return aboutDownloadLink;
+    }
+
+    public void setAboutDownloadLink(String aboutDownloadLink) {
+        this.aboutDownloadLink = aboutDownloadLink;
     }
 }

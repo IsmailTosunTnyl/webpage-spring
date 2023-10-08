@@ -47,6 +47,9 @@ class WebpageSpringApplicationTests {
 
 	@Value("${sql.script.create.selectorsection}")
 	private String sqlAddSelectorSection;
+
+	@Value("${sql.script.create.skillssection}")
+	private String sqlAddSkillsSection;
 	@Test void placeholder(){
 
 	}
@@ -113,18 +116,39 @@ class WebpageSpringApplicationTests {
 		assertNotEquals("en", selectorSectionTR.getLang(), "The language is must be tr");
 	}
 
+	@Test
+	@DisplayName("SkillsSection FindByLang")
+	void skillssectionFindByLang() {
 
+		SelectorSection selectorSectionTR = selectorSectionRepository.findByLang("tr");
+		SelectorSection selectorSectionEN = selectorSectionRepository.findByLang("en");
+
+		assertEquals("tr", selectorSectionTR.getLang(),"The language is must be tr");
+		assertEquals("en", selectorSectionEN.getLang(),"The language is must be en");
+		assertNotEquals("en", selectorSectionTR.getLang(), "The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("SkillsSection FindByID")
+	void skillssectionFinByID() {
+
+		SelectorSection selectorSectionTR = selectorSectionRepository.findById(1).get();
+
+		assertEquals("tr", selectorSectionTR.getLang(),"The language is must be tr");
+	}
 
 	@BeforeEach
 	void setUp() {
 		jdbc.execute(sqlAddTopSection);
 		jdbc.execute(sqlAddAboutSection);
 		jdbc.execute(sqlAddSelectorSection);
+		jdbc.execute(sqlAddSkillsSection);
 	}
 	@AfterEach
 	void tearDown() {
 		jdbc.execute("DELETE FROM top_section_table");
 		jdbc.execute("DELETE FROM about_section_table");
 		jdbc.execute("DELETE FROM selector_section_table");
+		jdbc.execute("DELETE FROM skills_section_table");
 	}
 }

@@ -37,6 +37,9 @@ public class WebpageSpringApplicationControllerTest {
     @Value("${sql.script.create.selectorsection}")
     private String sqlAddSelectorSection;
 
+    @Value("${sql.script.create.skillssection}")
+    private String sqlAddSkillsSection;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -51,12 +54,14 @@ public class WebpageSpringApplicationControllerTest {
         jdbc.execute(sqlAddTopSection);
         jdbc.execute(sqlAddAboutSection);
         jdbc.execute(sqlAddSelectorSection);
+        jdbc.execute(sqlAddSkillsSection);
     }
     @AfterEach
     void tearDown() {
         jdbc.execute("DELETE FROM top_section_table");
         jdbc.execute("DELETE FROM about_section_table");
         jdbc.execute("DELETE FROM selector_section_table");
+        jdbc.execute("DELETE FROM skills_section_table");
     }
 
     @Test
@@ -115,6 +120,20 @@ public class WebpageSpringApplicationControllerTest {
                 .andExpect(jsonPath("$.selectorSection.lang").value("tr"));
     }
 
+    @Test
+    @DisplayName("getAllData SkillsSection HTTP Request")
+    void getAlldataHttpRequestSkillsSection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.skillsSection.lang").value("en"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
+                        .header("Accept-Language", "tr"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.skillsSection.lang").value("tr"));
+    }
 
 
 }

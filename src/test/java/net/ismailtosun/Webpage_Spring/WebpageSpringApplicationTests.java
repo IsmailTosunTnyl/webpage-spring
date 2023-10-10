@@ -181,7 +181,9 @@ class WebpageSpringApplicationTests {
 	@DisplayName("Contact FindByID")
 	void contactsectionFinByID() {
 
-		ContactSection contactSectionTR = contactSectionRepository.findById(1).get();
+		ContactSection contactSectionTR = contactSectionRepository.findAll().get(0);
+		System.out.println(contactSectionTR.getLang());
+
 
 		assertEquals("tr", contactSectionTR.getLang(),"The language is must be tr");
 	}

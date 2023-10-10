@@ -40,6 +40,10 @@ public class WebpageSpringApplicationControllerTest {
     @Value("${sql.script.create.skillssection}")
     private String sqlAddSkillsSection;
 
+    @Value("${sql.script.create.contactsection}")
+    private String sqlAddContactSection;
+
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -55,13 +59,16 @@ public class WebpageSpringApplicationControllerTest {
         jdbc.execute(sqlAddAboutSection);
         jdbc.execute(sqlAddSelectorSection);
         jdbc.execute(sqlAddSkillsSection);
+        jdbc.execute(sqlAddContactSection);
     }
+
     @AfterEach
     void tearDown() {
         jdbc.execute("DELETE FROM top_section_table");
         jdbc.execute("DELETE FROM about_section_table");
         jdbc.execute("DELETE FROM selector_section_table");
         jdbc.execute("DELETE FROM skills_section_table");
+        jdbc.execute("DELETE FROM contact_section_table");
     }
 
     @Test
@@ -78,8 +85,6 @@ public class WebpageSpringApplicationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.topSection.lang").value("en"));
-
-
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
@@ -135,5 +140,32 @@ public class WebpageSpringApplicationControllerTest {
                 .andExpect(jsonPath("$.skillsSection.lang").value("tr"));
     }
 
+    @Test
+    @DisplayName("getAllData ContactSection HTTP Request")
+    void getAlldataHttpRequestContactSection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.contactSection.lang").value("en"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/webpage/alldata")
+                        .header("Accept-Language", "tr"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.contactSection.lang").value("tr"));
+    }
+
+    @Test
+    @DisplayName("Post ContactForm HTTP Request")
+    void postContactFormHttpRequest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/webpage/contactform").content("{\"contactName\":\"testName\",\"contactEmail\":\"testEmail\",\"contactMessage\":\"testMessage\"}")
+                .contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.contactName").value("testName"))
+                .andExpect(jsonPath("$.contactEmail").value("testEmail"))
+                .andExpect(jsonPath("$.contactMessage").value("testMessage"));
+    }
 
 }

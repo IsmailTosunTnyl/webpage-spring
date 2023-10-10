@@ -16,18 +16,19 @@ public class AllDataService {
     private AboutSectionRepository aboutSectionRepository;
     private SelectorSectionRepository selectorSectionRepository;
     private SkillsSectionRepository skillsSectionRepository;
-
     private RecentWorkSectionRepository recentWorkSectionRepository;
+    private ContactSectionRepository contactSectionRepository;
 
     @Autowired
     public AllDataService(TopSectionRepository topSectionRepository, AboutSectionRepository aboutSectionRepository,
                           SelectorSectionRepository selectorSectionRepository, SkillsSectionRepository skillsSectionRepository,
-                          RecentWorkSectionRepository recentWorkSectionRepository) {
+                          RecentWorkSectionRepository recentWorkSectionRepository, ContactSectionRepository contactSectionRepository) {
         this.topSectionRepository = topSectionRepository;
         this.aboutSectionRepository = aboutSectionRepository;
         this.selectorSectionRepository = selectorSectionRepository;
         this.skillsSectionRepository = skillsSectionRepository;
         this.recentWorkSectionRepository = recentWorkSectionRepository;
+        this.contactSectionRepository = contactSectionRepository;
     }
 
 
@@ -39,9 +40,11 @@ public class AllDataService {
         SelectorSection selectorSection = selectorSectionRepository.findByLang(lang);
         SkillsSection skillsSection = skillsSectionRepository.findByLang(lang);
         RecentWorkSection recentWorkSection = recentWorkSectionRepository.findByLang(lang);
+        ContactSection contactSection = contactSectionRepository.findByLang(lang);
 
 
-        AllData allData = new AllData(topSection, aboutSection, selectorSection,skillsSection,recentWorkSection);
+        AllData allData = new AllData(topSection, aboutSection, selectorSection,
+                                    skillsSection,recentWorkSection,contactSection);
 
         return allData;
     }

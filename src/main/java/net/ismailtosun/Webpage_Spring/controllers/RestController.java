@@ -1,6 +1,8 @@
 package net.ismailtosun.Webpage_Spring.controllers;
 
 import net.ismailtosun.Webpage_Spring.models.AllData;
+import net.ismailtosun.Webpage_Spring.models.ContactForm;
+import net.ismailtosun.Webpage_Spring.repository.ContactFormRepository;
 import net.ismailtosun.Webpage_Spring.service.AllDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +13,12 @@ import net.ismailtosun.Webpage_Spring.interfaces.WebpageAdapter;
 public class RestController implements WebpageAdapter {
 
     private AllDataService allDataService;
+    private ContactFormRepository contactFormRepository;
     @Autowired
-    public RestController(AllDataService allDataService) {
+    public RestController(AllDataService allDataService, ContactFormRepository contactFormRepository) {
         this.allDataService = allDataService;
+        this.contactFormRepository = contactFormRepository;
+
     }
     @GetMapping("/hello")
     public String getFire() {
@@ -27,4 +32,18 @@ public class RestController implements WebpageAdapter {
         System.out.printf("lang: %s\n", lang);
         return allData;
     }
+
+    @Override
+    @PostMapping("/contactform")
+    public ContactForm saveContactForm(@RequestBody ContactForm contactForm) {
+
+
+        contactFormRepository.save(contactForm);
+        return contactForm;
+
+
+
+    }
+
+
 }

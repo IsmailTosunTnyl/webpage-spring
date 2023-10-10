@@ -1,10 +1,7 @@
 package net.ismailtosun.Webpage_Spring;
 
 import net.ismailtosun.Webpage_Spring.models.*;
-import net.ismailtosun.Webpage_Spring.repository.AboutSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.RecentWorkSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.SelectorSectionRepository;
-import net.ismailtosun.Webpage_Spring.repository.TopSectionRepository;
+import net.ismailtosun.Webpage_Spring.repository.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,9 +35,15 @@ class WebpageSpringApplicationTests {
 
 	@Autowired
 	private SelectorSectionRepository selectorSectionRepository;
+
 	@Autowired
 	private RecentWorkSectionRepository recentWorkSectionRepository;
 
+	@Autowired
+	private ContactSectionRepository contactSectionRepository;
+
+	@Autowired
+	private ContactFormRepository contactFormRepository;
 
 	@Value("${sql.script.create.topsection}")
 	private String sqlAddTopSection;
@@ -57,6 +60,8 @@ class WebpageSpringApplicationTests {
 	private String sqlAddRecentWorkSection;
 	@Value("${sql.script.create.recentworkcard}")
 	private String sqlAddRecentWorkCard;
+	@Value("${sql.script.create.contactsection}")
+	private String sqlAddContactSection;
 	@Test void placeholder(){
 
 	}
@@ -172,6 +177,45 @@ class WebpageSpringApplicationTests {
 
 	}
 
+	@Test
+	@DisplayName("Contact FindByID")
+	void contactsectionFinByID() {
+
+		ContactSection contactSectionTR = contactSectionRepository.findById(1).get();
+
+		assertEquals("tr", contactSectionTR.getLang(),"The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("Contact FindByLang")
+	void contactsectionFindByLang() {
+
+		ContactSection contactSectionTR = contactSectionRepository.findByLang("tr");
+		ContactSection contactSectionEN = contactSectionRepository.findByLang("en");
+
+		assertEquals("tr", contactSectionTR.getLang(),"The language is must be tr");
+		assertEquals("en", contactSectionEN.getLang(),"The language is must be en");
+		assertNotEquals("en", contactSectionTR.getLang(), "The language is must be tr");
+	}
+
+	@Test
+	@DisplayName("ContactForm Save")
+	void contacFormSave(){
+
+		ContactForm contactForm = new ContactForm();
+		contactForm.setContactName("Test Name");
+		contactForm.setContactEmail("Test@mail.com");
+		contactForm.setContactMessage("Test Message");
+
+		contactFormRepository.save(contactForm);
+
+		List<ContactForm> contactForms = contactFormRepository.findAll();
+
+		assertEquals(1, contactForms.size(),"The length is must be 1");
+
+		assertEquals("Test Name", contactForms.get(0).getContactName(),"The name is must be Test Name");
+	}
+
 	@BeforeEach
 	void setUp() {
 		jdbc.execute(sqlAddTopSection);
@@ -180,6 +224,7 @@ class WebpageSpringApplicationTests {
 		jdbc.execute(sqlAddSkillsSection);
 		jdbc.execute(sqlAddRecentWorkSection);
 		jdbc.execute(sqlAddRecentWorkCard);
+		jdbc.execute(sqlAddContactSection);
 	}
 	@AfterEach
 	void tearDown() {
@@ -189,5 +234,7 @@ class WebpageSpringApplicationTests {
 		jdbc.execute("DELETE FROM skills_section_table");
 		jdbc.execute("DELETE FROM recent_work_section_table");
 		jdbc.execute("DELETE FROM recent_work_card_table");
+		jdbc.execute("DELETE FROM contact_section_table");
+		jdbc.execute("DELETE FROM contact_form_table");
 	}
 }

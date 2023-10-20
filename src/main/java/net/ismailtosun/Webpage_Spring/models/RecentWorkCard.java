@@ -24,6 +24,9 @@ public class RecentWorkCard {
     @Column(name = "recent_work_card_link")
     private String recentWorkCardLink;
 
+    @Column(name = "recent_work_card_image")
+    private String recentWorkCardImage;
+
     public RecentWorkCard(int id, String lang, String recentWorkCardTitle, String recentWorkCardText, String recentWorkCardButton, String recentWorkCardLink) {
         this.id = id;
         this.lang = lang;
@@ -31,6 +34,14 @@ public class RecentWorkCard {
         this.recentWorkCardText = recentWorkCardText;
         this.recentWorkCardButton = recentWorkCardButton;
         this.recentWorkCardLink = recentWorkCardLink;
+    }
+
+    public String getRecentWorkCardImage() {
+        return recentWorkCardImage;
+    }
+
+    public void setRecentWorkCardImage(String recentWorkCardImage) {
+        this.recentWorkCardImage = recentWorkCardImage;
     }
 
     public int getId() {

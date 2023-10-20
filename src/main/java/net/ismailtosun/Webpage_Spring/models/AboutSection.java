@@ -17,7 +17,8 @@ public class AboutSection {
     @Column(name = "about_title")
     private String aboutTitle;
 
-    @Column(name = "about_text")
+
+    @Column(name = "about_text", length = 1000)
     private String aboutText;
 
     @Column(name = "about_hireme_button")

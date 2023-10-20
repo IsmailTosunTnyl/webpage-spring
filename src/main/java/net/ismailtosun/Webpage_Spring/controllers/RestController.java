@@ -31,6 +31,7 @@ public class RestController implements WebpageAdapter {
         AllData allData = allDataService.getAllData(lang);
         System.out.printf("lang: %s\n", lang);
         return allData;
+
     }
 
     @Override

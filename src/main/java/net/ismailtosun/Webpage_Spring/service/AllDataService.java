@@ -36,6 +36,7 @@ public class AllDataService {
     public AllData getAllData(String lang){
 
         TopSection topSection = topSectionRepository.findByLang(lang);
+
         AboutSection aboutSection = aboutSectionRepository.findByLang(lang);
         SelectorSection selectorSection = selectorSectionRepository.findByLang(lang);
         SkillsSection skillsSection = skillsSectionRepository.findByLang(lang);
@@ -48,6 +49,7 @@ public class AllDataService {
 
         return allData;
     }
+
 
 
 

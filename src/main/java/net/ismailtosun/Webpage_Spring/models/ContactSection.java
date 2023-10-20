@@ -41,6 +41,31 @@ public class ContactSection {
     @Column(name = "contact_submessage")
     private String contactSubmessage;
 
+
+    public String getContactSubname() {
+        return contactSubname;
+    }
+
+    public void setContactSubname(String contactSubname) {
+        this.contactSubname = contactSubname;
+    }
+
+    public String getContactSubemail() {
+        return contactSubemail;
+    }
+
+    public void setContactSubemail(String contactSubemail) {
+        this.contactSubemail = contactSubemail;
+    }
+
+    public String getContactSubmessage() {
+        return contactSubmessage;
+    }
+
+    public void setContactSubmessage(String contactSubmessage) {
+        this.contactSubmessage = contactSubmessage;
+    }
+
     public int getId() {
         return id;
     }

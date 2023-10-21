@@ -1,9 +1,9 @@
-name: Run Docker Compose
+name: Run Docker Container
 
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   build:
@@ -13,13 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Docker Compose
-      run: docker-compose --version
-      continue-on-error: true
+    - name: Set up Docker
+      run: docker --version
 
-    - name: Build and Run Docker Compose
+    - name: Run Docker Container
       run: |
-        docker-compose -f docker-compose.yml up 
+        docker run  -p 8082:8081 --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} --env MYSQL_USER=${{ secrets.MYSQL_USER }} my-docker-image:latest
       env:
         MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         MYSQL_USER: ${{ secrets.MYSQL_USER }}

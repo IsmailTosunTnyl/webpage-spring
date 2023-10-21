@@ -19,7 +19,7 @@ jobs:
 
     - name: Build and Run Docker Compose
       run: |
-        docker-compose -f docker-compose.yml up --build 
+        docker-compose -f docker-compose.yml up 
       env:
         MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         MYSQL_USER: ${{ secrets.MYSQL_USER }}

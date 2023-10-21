@@ -1,0 +1,25 @@
+name: Run Docker Compose
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Compose
+      run: docker-compose --version
+      continue-on-error: true
+
+    - name: Build and Run Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml up --build 
+      env:
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}

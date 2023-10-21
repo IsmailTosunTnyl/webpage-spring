@@ -18,7 +18,11 @@ jobs:
 
     - name: Run Docker Container
       run: |
-        docker run  -p 8082:8081 --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} --env MYSQL_USER=${{ secrets.MYSQL_USER }} my-docker-image:latest
+        sudo docker stop springweb || true
+        sudo docker rm springweb || true
+        sudo docker rmi springweb:latest || true
+        sudo docker build -t springweb:latest -f Dockerfile .
+        docker run  -p 8082:8081 --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} --env MYSQL_USER=${{ secrets.MYSQL_USER }} springweb:latest
       env:
         MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         MYSQL_USER: ${{ secrets.MYSQL_USER }}

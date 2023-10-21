@@ -22,5 +22,5 @@ jobs:
         docker rm springweb || true
         docker rmi springweb:latest || true
         docker build -t springweb:latest -f Dockerfile .
-        docker run -p -d 8082:8081 --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} --env MYSQL_USER=${{ secrets.MYSQL_USER }} springweb:latest
+        docker run -d -p 8082:8081 --name springweb --env MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} --env MYSQL_USER=${{ secrets.MYSQL_USER }} springweb:latest
 

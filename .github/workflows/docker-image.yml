@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted,aws]
+    runs-on: [self-hosted,aws,sony]
 
     steps:
     - name: Checkout code

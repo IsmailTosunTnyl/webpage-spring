@@ -37,8 +37,7 @@ public class RestController implements WebpageAdapter {
     @Override
     @PostMapping("/contactform")
     public ContactForm saveContactForm(@RequestBody ContactForm contactForm) {
-
-
+        contactForm.setContactDate(new java.util.Date());
         contactFormRepository.save(contactForm);
         return contactForm;
 

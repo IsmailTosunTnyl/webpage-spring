@@ -1,6 +1,9 @@
 package net.ismailtosun.Webpage_Spring.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "contact_form_table")
@@ -18,6 +21,11 @@ public class ContactForm {
 
     @Column(name = "contact_message")
     private String contactMessage;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @Column(name = "contact_date")
+    private Date contactDate;
+
 
 
     public int getId() {
@@ -50,5 +58,13 @@ public class ContactForm {
 
     public void setContactMessage(String contactMessage) {
         this.contactMessage = contactMessage;
+    }
+
+    public Date getContactDate() {
+        return contactDate;
+    }
+
+    public void setContactDate(Date contactDate) {
+        this.contactDate = contactDate;
     }
 }

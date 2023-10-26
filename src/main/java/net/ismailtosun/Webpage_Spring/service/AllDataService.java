@@ -3,6 +3,7 @@ package net.ismailtosun.Webpage_Spring.service;
 import net.ismailtosun.Webpage_Spring.models.*;
 import net.ismailtosun.Webpage_Spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,10 @@ public class AllDataService {
     private SkillsSectionRepository skillsSectionRepository;
     private RecentWorkSectionRepository recentWorkSectionRepository;
     private ContactSectionRepository contactSectionRepository;
+    private Metadata metadata;
+
+    @Value("${spring.app.version}")
+    private String appVersion;
 
     @Autowired
     public AllDataService(TopSectionRepository topSectionRepository, AboutSectionRepository aboutSectionRepository,
@@ -45,7 +50,7 @@ public class AllDataService {
 
 
         AllData allData = new AllData(topSection, aboutSection, selectorSection,
-                                    skillsSection,recentWorkSection,contactSection);
+                                    skillsSection,recentWorkSection,contactSection, new Metadata(lang, "MySQL", appVersion));
 
         return allData;
     }

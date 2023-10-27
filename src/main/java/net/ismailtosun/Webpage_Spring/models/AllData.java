@@ -9,14 +9,17 @@ public class AllData {
 
     private ContactSection contactSection;
 
+    private Metadata metadata;
+
     public AllData(TopSection topSection, AboutSection aboutSection,SelectorSection selectorSection,
-                   SkillsSection skillsSection,RecentWorkSection recentWorkSection,ContactSection contactSection) {
+                   SkillsSection skillsSection,RecentWorkSection recentWorkSection,ContactSection contactSection, Metadata metadata) {
         this.topSection = topSection;
         this.aboutSection = aboutSection;
         this.selectorSection = selectorSection;
         this.skillsSection = skillsSection;
         this.recentWorkSection = recentWorkSection;
         this.contactSection = contactSection;
+        this.metadata = metadata;
     }
 
     public TopSection getTopSection() {
@@ -66,5 +69,13 @@ public class AllData {
 
     public void setContactSection(ContactSection contactSection) {
         this.contactSection = contactSection;
+    }
+
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 }

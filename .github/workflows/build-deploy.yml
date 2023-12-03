@@ -43,4 +43,4 @@ jobs:
       
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${HOSTNAME} "docker stop webpage-spring || true && docker rm webpage-spring || true && docker rmi ismailtosun/webpage-spring || true && docker run -d -p 4041:8081 --name webpage-spring ismailtosun/webpage-spring:latest"
+          ssh -o StrictHostKeyChecking=no -i private_key ${HOSTNAME} "docker stop webpage-spring || true && docker rm webpage-spring || true && docker rmi ismailtosun/webpage-spring || true &&docker run -d -p 4041:8081 --name webpage-spring -e MYSQL_USER=${{secrets.MYSQL_USER}} -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} ismailtosun/webpage-spring:latest"

@@ -43,4 +43,4 @@ jobs:
       
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${HOSTNAME} "docker stop webpage-spring || true && docker rm webpage-spring || true && docker rmi ismailtosun/webpage-spring || true && docker run -d -p 4016:80 --name webpage-spring ismailtosun/webpage-spring:latest"
+          ssh -o StrictHostKeyChecking=no -i private_key ${HOSTNAME} "docker stop webpage-spring || true && docker rm webpage-spring || true && docker rmi ismailtosun/webpage-spring || true && docker run -d -p 8081:8081 --name webpage-spring ismailtosun/webpage-spring:latest"

@@ -37,9 +37,8 @@ public class AllDataService {
     }
 
 
-
-    public AllData getAllData(String lang){
-
+    public AllData getAllData(String lang) {
+        System.out.println("lang = " + lang);
         TopSection topSection = topSectionRepository.findByLang(lang);
 
         AboutSection aboutSection = aboutSectionRepository.findByLang(lang);
@@ -48,16 +47,12 @@ public class AllDataService {
         RecentWorkSection recentWorkSection = recentWorkSectionRepository.findByLang(lang);
         ContactSection contactSection = contactSectionRepository.findByLang(lang);
 
+        System.out.println("topSection = " + topSection.getLang());
+        return new AllData(topSection, aboutSection, selectorSection,
+                skillsSection, recentWorkSection, contactSection, new Metadata(lang, "MySQL", appVersion));
 
-        AllData allData = new AllData(topSection, aboutSection, selectorSection,
-                                    skillsSection,recentWorkSection,contactSection, new Metadata(lang, "MySQL", appVersion));
 
-        return allData;
     }
-
-
-
-
 
 
 }

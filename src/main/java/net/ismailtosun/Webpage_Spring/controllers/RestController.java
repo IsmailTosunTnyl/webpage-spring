@@ -30,6 +30,7 @@ public class RestController implements WebpageAdapter {
     public AllData getAllData(@RequestHeader(value= "Accept-Language", defaultValue = "en") String lang) {
         AllData allData = allDataService.getAllData(lang);
         System.out.printf("lang: %s\n", lang);
+        System.out.println(allData);
         return allData;
 
     }
